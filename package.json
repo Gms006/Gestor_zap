@@ -1,0 +1,21 @@
+{
+  "name": "gestor-zap",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -k -n BACK,FRONT \"npm run dev:back\" \"npm run dev:front\"",
+    "dev:back": "npm --prefix backend run dev",
+    "dev:front": "npm --prefix frontend run dev",
+    "setup": "node scripts/setup.js",
+    "sync": "node scripts/initial-sync.js",
+    "explore": "node scripts/run-exploration.js",
+    "backup": "node scripts/backup-database.js",
+    "test": "echo (sem testes ainda)"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
