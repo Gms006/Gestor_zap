@@ -17,6 +17,7 @@ import { sendWhatsAppMessage } from './services/whatsapp.service.js';
 import { isNumberAuthorized } from './utils/authorized-numbers.utils.js';
 import { emitAlert, logSystemEvent } from './utils/system-events.utils.js';
 import { setSocketServer } from './websocket/io.js';
+import whatsappMockRouter from './mocks/whatsappMock.js';
 
 const app = express();
 const server = http.createServer(app);
@@ -43,6 +44,11 @@ app.use(cors({
 app.use(express.json({ limit: '5mb' }));
 app.use(limiter);
 app.use(loggerMiddleware);
+
+if (process.env.WHATSAPP_MOCK === 'on') {
+  logger.info('WhatsApp mock mode enabled');
+  app.use(whatsappMockRouter);
+}
 app.get(whatsappConfig.webhookPath, (req, res) => {
   const mode = req.query['hub.mode'];
   const verifyToken = req.query['hub.verify_token'];
