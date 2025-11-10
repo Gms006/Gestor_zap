@@ -21,3 +21,10 @@ frontend/out/
 *.sqlite
 *.db
 data/*.db
+# Env extras
+.env.local
+*.env.local
+**/.env*
+!/.env.example
+!/backend/.env.example
+!/frontend/.env.local.example
