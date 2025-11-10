@@ -12,3 +12,16 @@ build/
 *.db
 .DS_Store
 data/*.db
+frontend/.next/
+frontend/out/
+.vercel/
+.turbo/
+**/node_modules/
+**/dist/
+**/build/
+**/.cache/
+*.log
+.env
+*.env
+*.sqlite
+*.db
