@@ -9,7 +9,7 @@
     "sync": "node scripts/initial-sync.js",
     "explore": "node scripts/run-exploration.js",
     "backup": "node scripts/backup-database.js",
-    "test": "echo (sem testes ainda)"
+    "test": "npm --prefix backend test"
   },
   "workspaces": [
     "backend",

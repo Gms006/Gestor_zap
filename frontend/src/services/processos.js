@@ -1,19 +1,25 @@
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE?.replace(/\/+$/, '') || 'http://localhost:3000';
+import { apiGet } from './api';
+
+export async function getResumoProcessos(options = {}) {
+  const { query, init } = options;
+  return apiGet('/api/processos/resumo', { query, init });
+}
+
+export async function listProcessos({ page = 1, perPage = 20, status, tipo } = {}) {
+  return apiGet('/api/processos', {
+    query: { page, perPage, status, tipo },
+  });
+}
+
+export async function getProcesso(id, options = {}) {
+  if (!id) throw new Error('ID é obrigatório');
+  return apiGet(`/api/processos/${id}`, { init: options.init });
+}
 
 export async function fetchResumoProcessos(options = {}) {
-  const url = `${API_BASE}/api/processos/resumo`;
-  const res = await fetch(url, {
-    cache: 'no-store',
-    signal: options.signal,
-    headers: { Accept: 'application/json' }
+  const payload = await getResumoProcessos({
+    query: options.query,
+    init: options.signal ? { signal: options.signal } : options.init,
   });
-
-  if (!res.ok) {
-    const txt = await res.text().catch(() => '');
-    throw new Error(`Falha ao buscar resumo de processos (${res.status}): ${txt}`);
-  }
-
-  const payload = await res.json();
   return payload?.data || payload;
 }
